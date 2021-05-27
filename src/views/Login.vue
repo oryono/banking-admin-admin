@@ -12,7 +12,7 @@
           Sign in to your account
         </h2>
       </div>
-      <form class="mt-8">
+      <form class="mt-8" v-on:submit.prevent="submit">
         <input type="hidden" name="remember" value="true"/>
         <div class="rounded-md">
           <div>
@@ -63,7 +63,6 @@
         <div class="mt-6">
           <button
               type="submit"
-              v-on:click.prevent="submit"
               class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-600 hover:bg-green-500 focus:outline-none transition duration-150 ease-in-out"
           >
             Login
@@ -79,9 +78,7 @@ import {authenticate} from "../services/authService";
 
 export default {
   name: "Login",
-  props: {
-
-  },
+  props: {},
   data() {
     return {
       credentials: {
@@ -95,14 +92,14 @@ export default {
       return authenticate(this.credentials).then(
           res => {
             localStorage.setItem("credentials", JSON.stringify(res.data));
-            this.$router.push('/');
+            this.$router.push("/");
           }
       ).catch().finally();
     }
   },
 
   mounted() {
-    localStorage.clear()
+    localStorage.clear();
   }
 };
 </script>
